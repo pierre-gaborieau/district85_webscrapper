@@ -12,8 +12,10 @@ cors = CORS(app)
 api = Api(app)
 
 class Ranking(Resource):
-  def get(self):
-    return "", 201
+  @app.route('/<int:poule>/')
+  def get(self, poule):
+   
+    return poule, 201
   def post(self):
     return "Impossible de post", 405
     
