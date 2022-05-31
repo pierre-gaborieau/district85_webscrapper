@@ -12,6 +12,7 @@ cors = CORS(app)
 api = Api(app)
 
 class Ranking(Resource):
+  @app.route('/<int:poule>/')
   def get(self, poule):
    
     return poule, 201
