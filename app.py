@@ -13,17 +13,7 @@ api = Api(app)
 
 class Ranking(Resource):
   def get(self):
-     parser = reqparse.RequestParser() 
-     parser.add_argument('token', type=str, required=True)
-     query = parser.parse_args()
-    
-     if(query['token'] == conf().guid):
-        if(tryParseInt(query['poule'])):
-          return {}, 201
-        else :
-          return {}, 400
-     else:
-       return {}, 500
+    return "Bienvenue sur le ranking", 200
   def post(self):
     return "Impossible de post", 405
     
