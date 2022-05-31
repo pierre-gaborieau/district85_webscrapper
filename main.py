@@ -31,6 +31,15 @@ def tryParseInt(s):
     except ValueError:
         return False    
 
+api.add_resource(Ranking, '/ranking')
+
+@app.route('/')
+def index():
+    return "<h1>API living_snails</h1>"
+
+if __name__ == '__main__':
+    app.run(threaded=True, port=5000)
+
 # response = requests.get('https://districtfoot85.fff.fr/competitions/?id=385358&poule=4&phase=1&type=ch&tab=ranking')
 # toExport = []
 
