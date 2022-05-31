@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from flask import Flask
 from flask_cors import CORS
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Resource, Api
 from ranking_line import RankingLine, RankingLineEncoder
 from conf import conf
 import json
