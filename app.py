@@ -16,10 +16,12 @@ class Ranking(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('token', type=str, required=True)
     query = parser.parse_args()
-
+    
     if(query['token'] == conf().guid):
      
         return {'data': "data"}, 200 
+    else:
+      return 501
   def post(self):
     return "Impossible de post", 405
     
