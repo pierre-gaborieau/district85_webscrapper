@@ -1,8 +1,6 @@
-from base64 import encode
-from encodings import utf_8
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
 from flask_restful import Resource, Api
 from ranking_line import RankingLine, RankingLineEncoder
