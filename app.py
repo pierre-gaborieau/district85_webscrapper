@@ -12,8 +12,14 @@ cors = CORS(app)
 api = Api(app)
 
 class Ranking(Resource):
-  def get(self ):
-    return  201
+  def get(self):
+    parser = reqparse.RequestParser()
+    parser.add_argument('token', type=str, required=True)
+    query = parser.parse_args()
+
+    if(query['token'] == conf().guid):
+     
+        return {'data': "data"}, 200 
   def post(self):
     return "Impossible de post", 405
     
