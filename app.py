@@ -14,7 +14,7 @@ api = Api(app)
 class Ranking(Resource):
   def get(self):
     
-    return {"Bienvenue sur le " + "tre"}, 200
+    return "Impossible de get", 201
   def post(self):
     return "Impossible de post", 405
     
