@@ -1,3 +1,4 @@
+from base64 import encode
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask
@@ -33,7 +34,7 @@ class Ranking(Resource):
               if(len(raw) > 0):
                 temp = RankingLine(raw[0].text, raw[1].text, raw[2].text, raw[3].text, raw[4].text, raw[5].text, raw[6].text, raw[7].text, raw[8].text, raw[9].text, raw[10].text, raw[11].text)
                 toExport.append(temp)
-            return json.dumps(toExport, cls=RankingLineEncoder), 200
+            return json.dumps(toExport, cls=RankingLineEncoder, skipkeys=True), 200
           else:
             return {'error': 'Invalid Parameters'}, 401
         else:
