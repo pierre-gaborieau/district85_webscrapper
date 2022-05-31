@@ -13,7 +13,7 @@ api = Api(app)
 
 class Ranking(Resource):
   def get(self):
-     return 404
+     return {}, 404
      parser = reqparse.RequestParser() 
      parser.add_argument('token', type=str, required=True)
      query = parser.parse_args()
@@ -24,7 +24,7 @@ class Ranking(Resource):
         else :
           return 400
      else:
-       return 500
+       return {}, 500
     
 def tryParseInt(s):
     try:
