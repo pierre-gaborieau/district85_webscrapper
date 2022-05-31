@@ -13,7 +13,10 @@ api = Api(app)
 
 class Ranking(Resource):
   def get(self):
-    return "Bienvenue sur le ranking", 200
+    parser = reqparse.RequestParser()
+    parser.add_argument('name')   
+    args = parser.parse_args()
+    return "Bienvenue sur le " + args['name'], 200
   def post(self):
     return "Impossible de post", 405
     
