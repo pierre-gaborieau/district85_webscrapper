@@ -29,7 +29,7 @@ def tryParseInt(s):
     except ValueError:
         return False    
 
-api.add_resource(Ranking, '/ranking/')
+api.add_resource(Ranking, '/ranking')
 
 @app.route('/')
 def index():
