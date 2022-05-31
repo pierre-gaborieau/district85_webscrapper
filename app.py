@@ -12,18 +12,27 @@ cors = CORS(app)
 api = Api(app)
 
 class Ranking(Resource):
-  def get(self):
-    parser = reqparse.RequestParser()
-    parser.add_argument('token', type=str, required=True)
-    query = parser.parse_args()
-    
-    if(query['token'] == conf().guid):
-     
-        return {'data': "data"}, 200 
-    else:
-      return 501
-  def post(self):
-    return "Impossible de post", 405
+  def get(self, token, poule):
+      if(token != conf().guid):
+        return {'error': 'Invalid token'}, 401
+      else :
+        url = 'https://districtfoot85.fff.fr/competitions/?id=385358&poule={pouleId}&phase=1&type=ch&tab=ranking'.format(pouleId=poule)
+        response = requests.get(url)
+        toExport = []
+        unparsed = BeautifulSoup(response.content, "html.parser")
+        unparsed.prettify()
+        table_ranking = unparsed.find('table', attrs={'class' : "ranking-tab"})
+        table_lines = table_ranking.findChildren("tr", recursive=True)
+
+        for line in table_lines:
+          data = line.findChildren("td", recursive=True)
+          raw = []
+          raw.extend(data)
+          if(len(raw) > 0):
+            temp = RankingLine(raw[0].text, raw[1].text, raw[2].text, raw[3].text, raw[4].text, raw[5].text, raw[6].text)
+            toExport.append(temp)
+        return {'data' : toExport}, 200
+
     
 def tryParseInt(s):
     try:
@@ -31,7 +40,7 @@ def tryParseInt(s):
     except ValueError:
         return False    
 
-api.add_resource(Ranking, '/ranking')
+api.add_resource(Ranking, '/ranking/<string:token>/<int:poule>/')
 
 @app.route('/')
 def index():
@@ -40,20 +49,10 @@ def index():
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
 
-# response = requests.get('https://districtfoot85.fff.fr/competitions/?id=385358&poule=4&phase=1&type=ch&tab=ranking')
-# toExport = []
+# 
+# 
 
-# unparsed = BeautifulSoup(response.content, "html.parser")
-# unparsed.prettify()
+# 
 
-# table_ranking = unparsed.find('table', attrs={'class' : "ranking-tab"})
-# table_lines = table_ranking.findChildren("tr", recursive=True)
-
-# for line in table_lines:
-#   data = line.findChildren("td", recursive=True)
-#   raw = []
-#   raw.extend(data)
-#   if(len(raw) > 0):
-#     temp = RankingLine(raw[0].text, raw[1].text, raw[2].text, raw[3].text, raw[4].text, raw[5].text, raw[6].text)
-#     toExport.append(temp)
+# 
    
