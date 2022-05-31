@@ -24,6 +24,8 @@ class Ranking(Resource):
           return {}, 400
      else:
        return {}, 500
+  def post(self):
+    return "Impossible de post", 405
     
 def tryParseInt(s):
     try:
