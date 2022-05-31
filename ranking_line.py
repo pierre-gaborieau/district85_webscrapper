@@ -3,19 +3,19 @@ from json import JSONEncoder
 
 class RankingLine:
 
-  def __init__(self, position, teamName, points, played, win, draw, lose, forfait, goal, goalAgainst, penalty, goalDifference):
-    self.position = position
-    self.teamName = teamName
-    self.points = points
-    self.played = played
-    self.win = win
-    self.draw = draw
-    self.lose = lose
-    self.forfait = forfait
-    self.goal = goal
-    self.goalAgainst = goalAgainst
-    self.penalty = penalty
-    self.goalDifference = goalDifference
+  def __init__(self, position : int, teamName : str, points : int, played, win, draw, lose, forfait, goal, goalAgainst, penalty, goalDifference):
+    self.position = int(position)
+    self.teamName = str(teamName)
+    self.points = int(points)
+    self.played = int(played)
+    self.win = int(win)
+    self.draw = int(draw)
+    self.lose = int(lose)
+    self.forfait = int(forfait)
+    self.goal = int(goal)
+    self.goalAgainst = int(goalAgainst)
+    self.penalty = int(penalty)
+    self.goalDifference = int(goalDifference)
 
 class RankingLineEncoder(JSONEncoder):
   def default(self, o):
