@@ -13,8 +13,12 @@ api = Api(app)
 
 class Ranking(Resource):
   def get(self):
-    
-    return "Impossible de get", 201
+    parser = reqparse.RequestParser()
+    parser.add_argument('foo', type=int, required=True)
+    parser.add_argument('bar', type=int, required=True)
+    args = parser.parse_args()
+    a = args['foo'] + args['bar'] + "test "
+    return a, 201
   def post(self):
     return "Impossible de post", 405
     
