@@ -16,7 +16,7 @@ class Ranking(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('name')   
     args = parser.parse_args()
-    return "Bienvenue sur le " + args['name'], 200
+    return {"Bienvenue sur le " + args['name']}, 200
   def post(self):
     return "Impossible de post", 405
     
