@@ -1,19 +1,50 @@
 import requests
 from bs4 import BeautifulSoup
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Resource, Api, reqparse
 from ranking_line import RankingLine
+from conf import conf
 
-response = requests.get('https://districtfoot85.fff.fr/competitions/?id=385358&poule=4&phase=1&type=ch&tab=ranking')
+app = Flask(__name__)
 
-unparsed = BeautifulSoup(response.content, "html.parser")
-unparsed.prettify()
+cors = CORS(app)
+api = Api(app)
 
-table_ranking = unparsed.find('table', attrs={'class' : "ranking-tab"})
-table_lines = table_ranking.findChildren("tr", recursive=True)
+class Ranking(Resource):
+  def get(self):
+     parser = reqparse.RequestParser() 
+     parser.add_argument('token', type=str, required=True)
+     query = parser.parse_args()
+    
+     if(query['token'] == conf().guid):
+        if(tryParseInt(query['poule'])):
+          print('')
+        else :
+          return 400
+     else:
+       return 500
+    
+def tryParseInt(s):
+    try:
+        return int(s)
+    except ValueError:
+        return False    
 
-for line in table_lines:
-  data = line.findChildren("td", recursive=True)
-  raw = []
-  raw.extend(data)
-  if(len(raw) > 0):
-    temp = RankingLine(raw[0].text, raw[1].text)
-    print("Place ",temp.position , " : " , temp.teamName)
+# response = requests.get('https://districtfoot85.fff.fr/competitions/?id=385358&poule=4&phase=1&type=ch&tab=ranking')
+# toExport = []
+
+# unparsed = BeautifulSoup(response.content, "html.parser")
+# unparsed.prettify()
+
+# table_ranking = unparsed.find('table', attrs={'class' : "ranking-tab"})
+# table_lines = table_ranking.findChildren("tr", recursive=True)
+
+# for line in table_lines:
+#   data = line.findChildren("td", recursive=True)
+#   raw = []
+#   raw.extend(data)
+#   if(len(raw) > 0):
+#     temp = RankingLine(raw[0].text, raw[1].text, raw[2].text, raw[3].text, raw[4].text, raw[5].text, raw[6].text)
+#     toExport.append(temp)
+   
