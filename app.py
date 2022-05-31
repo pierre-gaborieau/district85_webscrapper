@@ -13,6 +13,7 @@ api = Api(app)
 
 class Ranking(Resource):
   def get(self):
+     return 404
      parser = reqparse.RequestParser() 
      parser.add_argument('token', type=str, required=True)
      query = parser.parse_args()
@@ -35,7 +36,7 @@ api.add_resource(Ranking, '/ranking')
 
 @app.route('/')
 def index():
-    return "<h1>API living_snails</h1>"
+    return "<h1>District85_webscrapper</h1>"
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
