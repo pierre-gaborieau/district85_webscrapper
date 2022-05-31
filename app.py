@@ -19,7 +19,7 @@ class Ranking(Resource):
     
      if(query['token'] == conf().guid):
         if(tryParseInt(query['poule'])):
-          return "Bienvenue sur le ranking de la poule " + query['poule']
+          return {}, 201
         else :
           return {}, 400
      else:
